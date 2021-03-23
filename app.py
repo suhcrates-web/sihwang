@@ -54,7 +54,7 @@ if __name__ == "__main__":
         # port = f.read().split(',')#노트북 5232, 데스크탑 5231
         # port = port[0]
     # print(port)
-    port=5234
+    port=5233
     #172.30.1.53
     #0.0.0.0
-    app.run(host = '172.30.1.53', port = port, debug=True)
+    app.run(host = '0.0.0.0', port = port, debug=True)
