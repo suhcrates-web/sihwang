@@ -305,7 +305,7 @@ def kos_toojaja(kos, plma_glob):
 if __name__ == '__main__':
     # print(kos_sentences('kospi',True))
     # print(background())
-    print(kos_toojaja('kosdaq',True))
+    print(kos_toojaja('kospi',True))
 
 #코스피, 코스닥 메인 숫자
 #거기서 나온 plma 넘기기
