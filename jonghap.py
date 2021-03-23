@@ -21,3 +21,5 @@ def jonghap():
     return {'ment':ment, 'time':now}
 # jonghap()
 # print(datetime.now())
+if __name__ == '__main__':
+    print(jonghap()['ment'])

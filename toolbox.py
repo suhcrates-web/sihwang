@@ -1,7 +1,7 @@
 import math
 
 def dict_sort(dict0, key0='key0'):
-    dict0 = {k:v for k, v in sorted(dict0.items(), reverse=False, key=lambda item: item[1][key0])}
+    dict0 = {k:v for k, v in sorted(dict0.items(), reverse=True, key=lambda item: item[1][key0])}
     return dict0
 
 

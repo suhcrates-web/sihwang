@@ -1,7 +1,11 @@
-from bs4 import BeautifulSoup
-import requests, re
-url = 'https://finance.naver.com/sise/sise_group.nhn?type=upjong'
-temp = requests.get(url)
-temp = BeautifulSoup(temp.text, 'html.parser')
-# nos = temp.find_all('td', {'class':'no'})
-print(temp)
+from datetime import datetime
+h = datetime.now().hour
+ampm= '오전'
+if h<=12:
+    ampm= '오전'
+else:
+    ampm = '오후'
+    h = h-12
+
+
+print(h)

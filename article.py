@@ -52,8 +52,16 @@ def background(be_0 = 'None'):
 
     d = jisu_dict_s
     # print(d)
-    now = f"{datetime.now().hour}시 {datetime.now().minute}분"
-    kospi_ment=f"""이날 오전 {now} 기준 코스피 지수는 전일 대비 {d['kospi']['point']}({d['kospi']['rate']}%) {d['kospi']['plma_ment']} {d['kospi']['num']}로 거래되고 있다."""
+    h = datetime.now().hour
+    ampm= '오전'
+    if h<=12:
+        ampm= '오전'
+    else:
+        ampm = '오후'
+        h = h-12
+    now = f"{h}시 {datetime.now().minute}분"
+    kospi_ment=f"""이날 {ampm} {now} 기준 코스피 지수는 전일 대비 {d['kospi']['point']}({d['kospi']['rate']}%)
+{d['kospi']['plma_ment']} {d['kospi']['num']}로 거래되고 있다."""
     # print(kospi_ment)
     kosdaq_ment=f"""코스닥 지수는 전일 대비 {d['kosdaq']['point']}({d['kosdaq']['rate']}%) {d['kosdaq']['plma_ment']} {d['kosdaq']['num']}로 거래되고 있다."""
     # print(kosdaq_ment)
@@ -62,6 +70,8 @@ def background(be_0 = 'None'):
 
     return {'kospi_ment':kospi_ment, 'kospi_plma':d['kospi']['plma'], 'kosdaq_ment':kosdaq_ment, 'kosdaq_plma':d[
         'kosdaq']['plma'], 'exch_ment':exch_ment}
+
+
 
 #코스피, 코스닥 시가총액 10위 종목별
 def kos_sentences(kos, plma_g):
@@ -156,6 +166,8 @@ def kos_sentences(kos, plma_g):
         else:
             result= f"{kos_han} 시가총액 상위 10개 종목 중 {plma_sent(minus)} {plma_sent(plus)}"
     return result
+
+
 
 #코스피, 코스닥 투자자별
 def kos_toojaja(kos, plma_glob):
@@ -290,7 +302,10 @@ def kos_toojaja(kos, plma_glob):
     # print(dicts_word)
     return ment
 
-
+if __name__ == '__main__':
+    # print(kos_sentences('kospi',True))
+    # print(background())
+    print(kos_toojaja('kosdaq',True))
 
 #코스피, 코스닥 메인 숫자
 #거기서 나온 plma 넘기기
