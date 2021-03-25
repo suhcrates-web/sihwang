@@ -3,6 +3,7 @@
 $(document).ready(function(){
 	
 	$(document).on('click', '#make_box', function(event){
+		var state = this.getAttribute("state");
 		
 		// alert('shit')
 		// var clicked = this.id
@@ -13,6 +14,7 @@ $(document).ready(function(){
 		$.ajax({
 			data:{
 				cmd : "giveme",
+				state: state
 			},
 			type : 'POST',
 			url : '/sihwang_post'
@@ -20,11 +22,13 @@ $(document).ready(function(){
 		.done(function(data){
 			if (data['cmd'] =='not_yet'){
 				$('#make_box').html("생성버튼")
+				location.reload()
 				alert(data.message)}
 			else if (data['cmd'] =='ok'){
 				$('#content_box').html(data.message)
 				$('#now').html(data.time)
 				$('#make_box').html("생성완료~~")
+				
 			}
 		});
 
@@ -39,6 +43,7 @@ $(document).ready(function(){
 
 	$(document).on('click', '.nextto', function(event){
 		var clicked = this.id
+
 		var name = this.textContent
 		if (confirm("시황당번을 ["+name+"]으로 바꾸시겠습니까?")){
 			$.ajax({

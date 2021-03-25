@@ -10,7 +10,9 @@
     <script>
     	$(document).ready(function(){
     		$('#{{id_0}}').addClass('dangbun')
+
     	})
+
     </script>
 </head>
 <body>
@@ -29,8 +31,9 @@
 <br><br><br><br>
 <hr>
 <h3>   ++시황종합 생성++</h3>
-<div id="make_box">생성버튼</div>
+<div id="make_box" state="{{state}}">생성버튼</div>
 <div><p>최신 생성 일시::   <span id='now'>{{now}}</span></p></div>
+<div><p>상태::   <span style='color:red' id='now'>{{state_m}}</span></p></div>
 
 <div id='content_box' style="display:block; width:600px; border:1px solid black">{{article | safe}}</div>  <!--이렇게 해야 html 그대로 노출됨.-->
 <br>

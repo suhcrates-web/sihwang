@@ -1,12 +1,17 @@
 import time
 from datetime import datetime
-from article import kos_toojaja, background, kos_sentences
+from article import kos_toojaja, background, kos_sentences, background_magam
 
-def jonghap():
+def jonghap(magam=False):
+
+
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     with open('data/jonghap_time.csv', 'w') as f:
         f.writelines([now])
-    bg = background()
+    if not magam:
+        bg = background()
+    elif magam:
+        bg = background_magam()
     kospi_toojaja = kos_toojaja('kospi', bg['kospi_plma'])
     time.sleep(3)
     kospi_jongmok = kos_sentences('kospi', bg['kospi_plma'])
