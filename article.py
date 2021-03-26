@@ -74,7 +74,7 @@ def background(be_0 = 'None'):
 #마감 기본문
 def background_magam():
 
-    with open('C:/stamp/sihwang.csv', 'r') as f:
+    with open('C:/stamp/sihwang.csv', 'r', encoding='cp949') as f:
         datas = f.readlines()[0].split(',')
     def str_to_plma(x):
         if x=='True':
