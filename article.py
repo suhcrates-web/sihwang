@@ -76,7 +76,6 @@ def background_magam():
 
     with open('C:/stamp/sihwang.csv', 'r') as f:
         datas = f.readlines()[0].split(',')
-
     def str_to_plma(x):
         if x=='True':
             x=True
@@ -90,7 +89,7 @@ def background_magam():
 
     state, now,kospi_data['num'],kospi_data['point'],kospi_data['rate'], kospi_data['plma'], kospi_data['plma_ment'], \
     kosdaq_data['num'], kosdaq_data['point'], kosdaq_data['rate'],kosdaq_data['plma'],kosdaq_data['plma_ment'],\
-    exch_data['num'], exch_data['point'], exch_data['plma']\
+    exch_data['num'], exch_data['point'], exch_data['plma'], exch_data['plma_ment']\
         =datas
     kospi_data['plma'] = str_to_plma(kospi_data['plma'])
     kosdaq_data['plma'] = str_to_plma(kosdaq_data['plma'])
@@ -340,7 +339,7 @@ def kos_toojaja(kos, plma_glob):
 
 if __name__ == '__main__':
     # print(kos_sentences('kospi',True))
-    print(background())
+    print(background_magam())
     # print(kos_toojaja('kospi',True))
 
 #코스피, 코스닥 메인 숫자
