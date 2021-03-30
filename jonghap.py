@@ -1,6 +1,6 @@
 import time
 from datetime import datetime
-from article import kos_toojaja, background, kos_sentences, background_magam
+from article import kos_toojaja, background, kos_sentences, background_magam, upjong_maker
 
 def jonghap(magam=False):
 
@@ -19,7 +19,11 @@ def jonghap(magam=False):
     kosdaq_toojaja = kos_toojaja('kosdaq',bg['kosdaq_plma'])
     time.sleep(3)
     kosdaq_jongmok = kos_sentences('kosdaq', bg['kosdaq_plma'])
-    ment = f"""<br><br>{bg['kospi_ment']}<br><br>{kospi_toojaja}<br><br>{kospi_jongmok}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}<br><br>{bg['exch_ment']}<br><br>"""
+    time.sleep(3)
+    kospi_upjong = upjong_maker('kospi',bg['kospi_plma'])
+    ment = f"""<br><br>{bg['kospi_ment']}<br><br>{kospi_toojaja}<br><br>{kospi_jongmok}\
+    <br><br{kospi_upjong}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
+    <br><br>{bg['exch_ment']}<br><br>"""
     # return {'ment':ment}
     with open('data/jonghap.csv', 'w') as f:
         f.writelines([ment,'|',str(now)])
