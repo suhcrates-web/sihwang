@@ -60,9 +60,11 @@ def background(be_0 = 'None'):
         ampm = '오후'
         h = h-12
     now = f"{h}시 {datetime.now().minute}분"
-    kospi_ment=f"""이날 {ampm} {now} 기준 코스피 지수는 전일 대비 {d['kospi']['point']}({d['kospi']['rate']}%){d['kospi']['plma_ment']} {d['kospi']['num']}로 거래되고 있다."""
+    kospi_ment=f"""이날 {ampm} {now} 기준 코스피 지수는 전일 대비 {d['kospi']['point']}포인트(p)(\
+{d['kospi']['rate']}%){d['kospi']['plma_ment']} {d['kospi']['num']}로 거래되고 있다."""
     # print(kospi_ment)
-    kosdaq_ment=f"""코스닥 지수는 전일 대비 {d['kosdaq']['point']}({d['kosdaq']['rate']}%) {d['kosdaq']['plma_ment']} {d['kosdaq']['num']}로 거래되고 있다."""
+    kosdaq_ment=f"""코스닥 지수는 전일 대비 {d['kosdaq']['point']}p({d['kosdaq']['rate']}%)\
+{d['kosdaq']['plma_ment']} {d['kosdaq']['num']}로 거래되고 있다."""
     # print(kosdaq_ment)
 
     exch_ment=f"""달러/원 환율은 {d['원/달러']['point']}원 오른 {d['원/달러']['num']}원으로 거래되고 있다."""
