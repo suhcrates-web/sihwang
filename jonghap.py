@@ -22,7 +22,7 @@ def jonghap(magam=False):
     time.sleep(3)
     kospi_upjong = upjong_maker('kospi',bg['kospi_plma'])
     ment = f"""<br><br>{bg['kospi_ment']}<br><br>{kospi_toojaja}<br><br>{kospi_jongmok}\
-<br><br{kospi_upjong}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
+<br><br>{kospi_upjong}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
 <br><br>{bg['exch_ment']}<br><br>"""
     # return {'ment':ment}
     with open('data/jonghap.csv', 'w') as f:
