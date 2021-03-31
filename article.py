@@ -67,7 +67,7 @@ def background(be_0 = 'None'):
 {d['kosdaq']['plma_ment']} {d['kosdaq']['num']}로 거래되고 있다."""
     # print(kosdaq_ment)
 
-    exch_ment=f"""달러/원 환율은 {d['원/달러']['point']}원 오른 {d['원/달러']['num']}원으로 거래되고 있다."""
+    exch_ment=f"""서울외환시장에서 달러/원 환율은 {d['원/달러']['point']}원 {d['원/달러']['plma_ment']} {d['원/달러']['num']}원으로 거래되고 있다."""
 
     return {'kospi_ment':kospi_ment, 'kospi_plma':d['kospi']['plma'], 'kosdaq_ment':kosdaq_ment, 'kosdaq_plma':d[
         'kosdaq']['plma'], 'exch_ment':exch_ment}
@@ -106,7 +106,7 @@ def background_magam():
                f"""{d['kospi']['num']}로 거래를 마쳤다."""
     kosdaq_ment=f"""코스닥 지수는 전일 대비 {d['kosdaq']['point']}({d['kosdaq']['rate']}%) {d['kosdaq']['plma_ment']} {d['kosdaq']['num']}로 마감했다."""
 
-    exch_ment=f"""달러/원 환율은 {d['원/달러']['point']}원 오른 {d['원/달러']['num']}원으로 마감했다."""
+    exch_ment=f"""서울외환시장에서 달러/원 환율은 {d['원/달러']['point']}원 {d['원/달러']['plma_ment']} {d['원/달러']['num']}원으로 마감했다."""
     return {'kospi_ment':kospi_ment, 'kospi_plma':d['kospi']['plma'], 'kosdaq_ment':kosdaq_ment, 'kosdaq_plma':d[
         'kosdaq']['plma'], 'exch_ment':exch_ment}
 
@@ -416,7 +416,7 @@ def upjong_maker(kos, plma_g):
         minus_num = 0
         for i in line:
             temp = i.split('|')
-            if temp[1] in ['코스피배당성장50','코스피코배당50','종합(KOSPI)']:
+            if temp[1] in ['코스피배당성장50','코스피고배당50','종합(KOSPI)', '변동성지수']:
                 pass
             else:
                 rate = float(temp[5].replace('+',''))
