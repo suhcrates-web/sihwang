@@ -69,8 +69,7 @@ def background(be_0 = 'None'):
 
     exch_ment=f"""서울외환시장에서 달러/원 환율은 {d['원/달러']['point']}원 {d['원/달러']['plma_ment']} {d['원/달러']['num']}원으로 거래되고 있다."""
 
-    return {'kospi_ment':kospi_ment, 'kospi_plma':d['kospi']['plma'], 'kosdaq_ment':kosdaq_ment, 'kosdaq_plma':d[
-        'kosdaq']['plma'], 'exch_ment':exch_ment}
+    return {'kospi_ment':kospi_ment, 'kospi_plma':d['kospi']['plma'], 'kosdaq_ment':kosdaq_ment, 'kosdaq_plma':d['kosdaq']['plma'], 'exch_ment':exch_ment}
 
 
 #마감 기본문
@@ -469,7 +468,7 @@ def upjong_maker(kos, plma_g):
 
 if __name__ == '__main__':
     # print(kos_sentences('kospi',True))
-    print(background_magam())
+    print(background())
     # print(kos_toojaja('kospi',True))
 
 #코스피, 코스닥 메인 숫자
