@@ -404,7 +404,7 @@ def upjong_maker(kos, plma_g):
                         #     han = True
                         # except:
                         #     print('.', end='')
-        print(line)
+        # print(line)
         line= line[line.index('MT'):]
         line= re.sub('.*                              ','',line)
         line = line[5:]
