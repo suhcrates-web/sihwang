@@ -4,42 +4,46 @@ import socket, codecs, time, re
 from toolbox import dict_sort, banolim
 from datetime import date, timedelta, datetime
 
-def temptemp(kos, plma_g):
+
+def upjong_kosdaq(plma_g):
     # try:
 
-        clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        ##화면번호 211
-        if kos=='kospi':
-            a='fefd4d540000003030323531540002004e0153544f434b4700003030303032303137303231382020303231383030000043333373756863726174653030303030303030303030303031353833303133343430313236312020000000000000000000000000000000003030313534393030387f3030311e2430303030303032303137303035302020202020202020202020202020202030402020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020203030303236393030311f3330321f31301f32351f31311f31321f31331f3134'
+    dics = {103:{'name':'기타서비스'}, 104:{'name':'IT'} ,106:{'name':'제조'} \
+        ,107 :{'name':'건설'}, 108 :{'name':'유통'}, 110:{'name':'운송'}, 111:{'name':'금융'}, 112:{'name':'통신방송서비스'} \
+        ,115:{'name':'음식료/담배'}, 116:{'name':'섬유/의류'}, 117:{'name':'종이/목재'}, 118:{'name':'출판'} \
+        , 119:{'name':'화학'}, 120:{'name':'제약'},121 :{'name':'비금속'}, 122:{'name':'금속'} \
+        , 123 :{'name':'기계/장비'}, 124:{'name':'일반전기전자'}, 125:{'name':'의료/정밀기기'}, 126:{'name':'운송장비/부품'} \
+        , 127 :{'name':'기타 제조'}, 128:{'name':'통신서비스'}, 129:{'name':'방송서비스'}, 130:{'name':'인터넷'}, \
+            131:{'name':'디지털컨텐츠'}, 132:{'name':'소프트웨어'}, 133:{'name':'컴퓨터서비스'},134:{'name':'통신장비'}, \
+            135:{'name':'정보기기'},136:{'name':'반도체'},137:{'name':'IT부품'},141:{'name':'오락,문화'}}
 
-        if kos == 'kosdaq':
-            a ='fefd4d540000003030323531540002004e0153544f434b4700003030303032303137303231382020303231383030000043333373756863726174653030303030303030303030303031393430323131313731333139352020000000000000000000000000000000003030313534393030387f3130311e2430303030303032303137303035302020202020202020202020202020202030402020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020203030303236393030311f3330321f31301f32351f31311f31321f31331f3134'
+    cd_socket_list = []
+    for i in [*dics]:
+        ii = str(i)
+        dics[i]['cd_in_socket'] = f'3{ii[0]}3{ii[1]}3{ii[2]}'
 
-        ip = '211.115.74.81'
+    ###0213 화면. 업종 하나씩 보내서 함. 여기는 업종번호 106에 보냄. 가운데 313036  이 그것. 그 번호만 바꾸면 됨.
 
-        a= codecs.decode(a, 'hex')
-        clientSocket.connect((ip, 14811))
+    ip = '58.229.136.91'
 
-        line_bf = ''
-        tik_dick= {}
-        # while True:
-        clientSocket.send(a)
-        test =True
-        skip = False
-        line =''
-        data = b''
-        # data = clientSocket.recv(100000)
-        # time.sleep(3)
-
-        dics = {}
-        for _ in range(0,10):
-            new = clientSocket.recv(1000000)
-            data_temp = new.hex()
-            # num += len(data_temp)
-            temp = ''
+    clientSocket.connect((ip, 14811))
+    for ii in [*dics]:
+        try:
+            a=f'fefd4d54000000303031323654000200390155504a4f4e470000000000000000000030323133202' \
+              f'0303231333030000043333373756863726174653030303030303030303030303031343' \
+              f'3303231353435303633353120200000000000000000000000000000000030303032393' \
+              f'93030317f{dics[ii]["cd_in_socket"]}1e393030387f3130311e31301f32351f31' \
+              '311f3132'
+            a= codecs.decode(a, 'hex')
+            clientSocket.send(a)
+            skip = False
+            line =''
+            data = clientSocket.recv(1024)
+            data = data.hex()
             han = False
-            for i in range(len(data_temp)//2):
+            for i in range(len(data)//2):
                 if skip:
                     skip = False
                     pass
@@ -48,140 +52,69 @@ def temptemp(kos, plma_g):
                         han = False
                     else:
                         try:
-                            ps =data_temp[i*2:i*2+2]
+                            ps =data[i*2:i*2+2]
                             if ps == '1f':
                                 # print('|',end='')
-                                temp +='|'
+                                line +='|'
                             else:
                                 # print(codecs.decode(ps,'hex').decode('cp949')  ,end='')
-                                temp += codecs.decode(ps,'hex').decode('utf-8')
+                                line += codecs.decode(ps,'hex').decode('utf-8')
 
                         except:
-                            temp += '.'
-            # print(temp)
-            line += temp
-            time.sleep(3)
+                            line += '.'
+            # print(line.split('|')[3])
+            # print(line + str(ii))
+            temp_rate = line.split('|')[3]
+            dics[ii]["rate"] =re.search(r'[+-]\d+\.\d\d',temp_rate)[0]
+            time.sleep(0.3)
+        except:
+            dics[ii]["rate"] = '0'
+    # print(dics)
 
-        # line_old =''
-        # n = 0
-        # while True :
-        #     n+=1
-        #     line = ''
-        #     data = ''
-        #     for _ in range(10):
-        #         data += clientSocket.recv(1024)
-        #         time.sleep(2)
-        #
-        #
-        data = data.hex()
-        # print(data)
-        # print(codecs.decode(data, 'hex').decode('cp949'))
-        # line = []
-        han = False
-        print('=====================================')
 
-        line =line.replace('\n','')
-        lines = line.split('\t')
-        n =0
-        print(lines)
-        for i in lines:
-            if bool(re.search('0J0',i)):
-                try:
-                    code = re.findall(r'(?<=0J0\d\d)\d\d\d',i)[0]
-                    dics[code] = lines[n+4]
-                except:
-                    pass
+    plus_num =0
+    minus_num = 0
+    for i in dics:
+        rate = dics[i]['rate']
+        rate = float(rate.replace('+',''))
+        if rate >0 :
+            plus_num +=1
+        elif rate <0:
+            minus_num +=1
+        dics[i]['rate'] = rate
 
-            n +=1
-        print(dics)
-        # han = False
-        # for i in range(len(data)//2):
-        #     if skip:
-        #         skip = False
-        #         pass
-        #     else:
-        #         if han:
-        #             han = False
-        #         else:
-        #             try:
-        #                 ps =data[i*2:i*2+2]
-        #                 if ps == '1f':
-        #                     # print('|',end='')
-        #                     line +='|'
-        #                 else:
-        #                     # print(codecs.decode(ps,'hex').decode('cp949')  ,end='')
-        #                     line += codecs.decode(ps,'hex').decode('utf-8')
-        #
-        #             except:
-        #                 line += '.'
-        # print('=====================================')
-        # print(line)
-        #     line_old = line_old + line + f"씨발{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}{n}씨발"
-        #     print("==============================================================================")
-        #     print(n)
-        #     print("==============================================================================")
-        #     print(line_old)
-        #     time.sleep(3)
-    #     line= line[line.index('MT'):]
-    #     line= re.sub('.*                              ','',line)
-    #     line = line[5:]
-    #     line = line.split(sep='\n')
-    #     # print(line)
-    #     dicts={}
-    #     plus_num =0
-    #     minus_num = 0
-    #     for i in line:
-    #         temp = i.split('|')
-    #         if temp[1] in ['코스피배당성장50','코스피고배당50','종합(KOSPI)', '변동성지수']:
-    #             pass
-    #         else:
-    #             rate = float(temp[5].replace('+',''))
-    #             if rate >0 :
-    #                 plus_num +=1
-    #             elif rate <0:
-    #                 minus_num +=1
-    #             dicts[temp[1]]={'rate':rate}
-    #     # print(dicts)
-    #
-    #     dicts = dict_sort(dicts,'rate')
-    #     # print(dicts)
-    #
-    #     if plus_num <5:
-    #         minus_num = 10 - plus_num
-    #     elif minus_num <5:
-    #         plus_num = 10 - minus_num
-    #     else:
-    #         plus_num, minus_num = 5,5
-    #
-    #     plus = [*dicts][:plus_num]
-    #     minus = [*dicts][-minus_num:][::-1]
-    #     # print(plus)
-    #     # print(minus)
-    #
-    #
-    #
-    #     def ment_maker(plma_list):
-    #         ment_temp = ''
-    #         for i in plma_list:
-    #             ment_temp += f"""{i}({dicts[i]['rate']}%), """
-    #         ment_temp = ment_temp[:-2]
-    #         return ment_temp
-    #
-    #     plus_ment = ment_maker(plus)
-    #     minus_ment = ment_maker(minus)
-    #
-    #     ment =''
-    #     if plma_g == True:
-    #         ment = f"""업종별로 상승한 업종은 {plus_ment} 등이다. 하락한 업종은 {minus_ment} 등이다."""
-    #     elif plma_g == False:
-    #         ment = f"""업종별로 하락한 업종은 {minus_ment} 등이다. 상승한 업종은 {plus_ment} 등이다. """
-    #
-    #
-    #     return(ment)
-    # except:
-    #     time.sleep(3)
-    #     upjong_maker(kos, plma_g)
-    # except:
-    #     print('fail')
+    dics = dict_sort(dics,'rate')
+
+    if plus_num <5:
+        minus_num = 10 - plus_num
+    elif minus_num <5:
+        plus_num = 10 - minus_num
+    else:
+        plus_num, minus_num = 5,5
+
+    plus = [*dics][:plus_num]
+    minus = [*dics][-minus_num:][::-1]
+    # print(plus)
+    # print(minus)
+
+    def ment_maker(plma_list):
+        ment_temp = ''
+        for i in plma_list:
+            ment_temp += f"""{dics[i]['name']}({dics[i]['rate']}%), """
+        ment_temp = ment_temp[:-2]
+        return ment_temp
+
+    plus_ment = ment_maker(plus)
+    minus_ment = ment_maker(minus)
+
+    ment =''
+    if plma_g == True:
+        ment = f"""업종별로 상승한 업종은 {plus_ment} 등이다. 하락한 업종은 {minus_ment} 등이다."""
+    elif plma_g == False:
+        ment = f"""업종별로 하락한 업종은 {minus_ment} 등이다. 상승한 업종은 {plus_ment} 등이다. """
+
+    return (ment)
+
+
 if __name__ == "__main__":
-    temptemp('kosdaq',True)
+    print(upjong_kosdaq(True))

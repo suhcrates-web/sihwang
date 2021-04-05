@@ -30,7 +30,7 @@ def upjong_kosdaq(plma_g):
     ip = '211.115.74.81'
 
     clientSocket.connect((ip, 14811))
-    for ii in [*dics]:
+    for ii in [130]:
         a=f'fefd4d54000000303031323654000200390155504a4f4e470000000000000000000030323133202'\
           f'0303231333030000043333373756863726174653030303030303030303030303031343' \
           f'3303231353435303633353120200000000000000000000000000000000030303032393' \
@@ -63,14 +63,15 @@ def upjong_kosdaq(plma_g):
                     except:
                         line += '.'
         # print(line.split('|')[3])
+        print(line)
         dics[ii]["rate"] =line.split('|')[3]
         time.sleep(0.3)
     # print(dics)
 
-
+    print(dics)
     plus_num =0
     minus_num = 0
-    for i in dics:
+    for i in [130]:
         rate = dics[i]['rate']
         rate = float(rate.replace('+',''))
         if rate >0 :

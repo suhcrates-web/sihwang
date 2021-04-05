@@ -491,40 +491,45 @@ def upjong_kosdaq(plma_g):
 
     clientSocket.connect((ip, 14811))
     for ii in [*dics]:
-        a=f'fefd4d54000000303031323654000200390155504a4f4e470000000000000000000030323133202' \
-          f'0303231333030000043333373756863726174653030303030303030303030303031343' \
-          f'3303231353435303633353120200000000000000000000000000000000030303032393' \
-          f'93030317f{dics[ii]["cd_in_socket"]}1e393030387f3130311e31301f32351f31' \
-          '311f3132'
-        a= codecs.decode(a, 'hex')
-        clientSocket.send(a)
-        skip = False
-        line =''
-        data = clientSocket.recv(1024)
-        data = data.hex()
-        han = False
-        for i in range(len(data)//2):
-            if skip:
-                skip = False
-                pass
-            else:
-                if han:
-                    han = False
+        try:
+            a=f'fefd4d54000000303031323654000200390155504a4f4e470000000000000000000030323133202' \
+              f'0303231333030000043333373756863726174653030303030303030303030303031343' \
+              f'3303231353435303633353120200000000000000000000000000000000030303032393' \
+              f'93030317f{dics[ii]["cd_in_socket"]}1e393030387f3130311e31301f32351f31' \
+              '311f3132'
+            a= codecs.decode(a, 'hex')
+            clientSocket.send(a)
+            skip = False
+            line =''
+            data = clientSocket.recv(1024)
+            data = data.hex()
+            han = False
+            for i in range(len(data)//2):
+                if skip:
+                    skip = False
+                    pass
                 else:
-                    try:
-                        ps =data[i*2:i*2+2]
-                        if ps == '1f':
-                            # print('|',end='')
-                            line +='|'
-                        else:
-                            # print(codecs.decode(ps,'hex').decode('cp949')  ,end='')
-                            line += codecs.decode(ps,'hex').decode('utf-8')
+                    if han:
+                        han = False
+                    else:
+                        try:
+                            ps =data[i*2:i*2+2]
+                            if ps == '1f':
+                                # print('|',end='')
+                                line +='|'
+                            else:
+                                # print(codecs.decode(ps,'hex').decode('cp949')  ,end='')
+                                line += codecs.decode(ps,'hex').decode('utf-8')
 
-                    except:
-                        line += '.'
-        # print(line.split('|')[3])
-        dics[ii]["rate"] =line.split('|')[3]
-        time.sleep(0.3)
+                        except:
+                            line += '.'
+            # print(line.split('|')[3])
+            # print(line + str(ii))
+            temp_rate = line.split('|')[3]
+            dics[ii]["rate"] =re.search(r'[+-]\d+\.\d\d',temp_rate)[0]
+            time.sleep(0.3)
+        except:
+            dics[ii]["rate"] = '0'
     # print(dics)
 
 
@@ -550,6 +555,8 @@ def upjong_kosdaq(plma_g):
 
     plus = [*dics][:plus_num]
     minus = [*dics][-minus_num:][::-1]
+    # print(plus)
+    # print(minus)
 
     def ment_maker(plma_list):
         ment_temp = ''
