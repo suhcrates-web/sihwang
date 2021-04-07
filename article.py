@@ -103,7 +103,7 @@ def background_magam():
 
     kospi_ment=f"""이날 코스피 지수는 전일 대비 {d['kospi']['point']}포인트(p)({d['kospi']['rate']}%) {d['kospi']['plma_ment']} """ \
                f"""{d['kospi']['num']}로 거래를 마쳤다."""
-    kosdaq_ment=f"""코스닥 지수는 전일 대비 {d['kosdaq']['point']}p({d['kosdaq']['rate']}%) {d['kosdaq']['plma_ment']}
+    kosdaq_ment=f"""코스닥 지수는 전일 대비 {d['kosdaq']['point']}p({d['kosdaq']['rate']}%) {d['kosdaq']['plma_ment']}\
 {d['kosdaq']['num']}로 마감했다."""
 
     exch_ment=f"""서울외환시장에서 달러/원 환율은 {d['원/달러']['point']}원 {d['원/달러']['plma_ment']} {d['원/달러']['num']}원으로 마감했다."""
