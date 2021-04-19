@@ -14,6 +14,7 @@ $(document).ready(function(){
 		$.ajax({
 			data:{
 				cmd : "giveme",
+				version : "1",
 				state: state
 			},
 			type : 'POST',

@@ -22,7 +22,7 @@ def jonghap(magam=False, version ='1'):
     time.sleep(3)
     kosdaq_toojaja = kos_toojaja('kosdaq',bg['kosdaq_plma'])
     time.sleep(3)
-    kospi_upjong = upjong_maker('kospi',bg['kospi_plma'])
+    kospi_upjong = upjong_maker('kospi',bg['kospi_plma'])add 
     kospi_jongmok = kos_sentences('kospi', bg['kospi_plma'])
     # try:
     kosdaq_upjong = upjong_kosdaq(bg['kosdaq_plma'])
