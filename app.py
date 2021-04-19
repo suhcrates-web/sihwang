@@ -102,7 +102,7 @@ def index2():
     print(state)
     if state == '1':
         state_m = '장중'
-        with open('data/jongha2.csv', 'r') as f:
+        with open('data/jonghap2.csv', 'r') as f:
             data = f.readlines()[0].split('|')
         
         article = data[0]
@@ -143,12 +143,12 @@ def si_post2():
 
         if cmd == 'giveme':
             now =datetime.today()
-            with open('data/jonghap_time.csv', 'r') as f:
+            with open('data/jonghap_time2.csv', 'r') as f:
                 ago = f.readlines()[0]
             
             ago =datetime.strptime(ago, '%Y-%m-%d %H:%M:%S')
-            if (now-ago)<timedelta(minutes=2): #2분미만
-                message = "다른 사람이 생성중이거나 최근 생성 2분 미만입니다…좀만 기다려보세요"
+            if (now-ago)<timedelta(minutes=1): #1분미만
+                message = "다른 사람이 생성중이거나 최근 생성 1분 미만입니다…좀만 기다려보세요"
                 cmd = 'not_yet'
                 time = ''
             else:
