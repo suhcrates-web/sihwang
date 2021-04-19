@@ -2,11 +2,17 @@ import time
 from datetime import datetime
 from article import kos_toojaja, background, kos_sentences, background_magam, upjong_maker, upjong_kosdaq
 
-def jonghap(magam=False):
+def jonghap(magam=False, version ='1'):
 
+    if version == '1':
+        jong_time = 'jonghap_time'
+        jong = 'jonghap'
+    elif version == '2':
+        jong_time = 'jonghap_time2'
+        jong = 'jonghap2'
 
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    with open('data/jonghap_time.csv', 'w') as f:
+    with open(f'data/{jong_time}.csv', 'w') as f:
         f.writelines([now])
     if not magam:
         bg = background()
@@ -27,7 +33,7 @@ def jonghap(magam=False):
 <br><br>{kospi_upjong}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
 <br><br>{kosdaq_upjong}<br><br>{bg['exch_ment']}<br><br>"""
     # return {'ment':ment}
-    with open('data/jonghap.csv', 'w') as f:
+    with open(f'data/{jong}.csv', 'w') as f:
         f.writelines([ment,'|',str(now)])
     return {'ment':ment, 'time':now}
 # jonghap()

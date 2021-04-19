@@ -13,7 +13,7 @@ $(document).ready(function(){
 		$('#make_box').html("생성중....(10초 소요됨)")
 		$.ajax({
 			data:{
-				cmd : "giveme",
+				cmd : "giveme2",
 				state: state
 			},
 			type : 'POST',

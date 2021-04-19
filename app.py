@@ -51,14 +51,20 @@ def si_post():
     if request.method =='POST':
         cmd = request.form['cmd']
         state = request.form['state']
+        version = request.form['version']
         if state == '2':
             magam = True
         else:
             magam = False
 
         if cmd == 'giveme':
+            if version == '1':
+                jong_time = 'jonghap_time'
+            elif version == '2':
+                jong_time = 'jonghap_time2'
+
             now =datetime.today()
-            with open('data/jonghap_time.csv', 'r') as f:
+            with open(f'data/{jong_time}.csv', 'r') as f:
                 ago = f.readlines()[0]
             
             ago =datetime.strptime(ago, '%Y-%m-%d %H:%M:%S')
@@ -68,9 +74,9 @@ def si_post():
                 time = ''
             else:
                 if magam:
-                    result = jonghap(magam)
+                    result = jonghap(magam=magam, version=version)
                 elif state == '1':
-                    result = jonghap()
+                    result = jonghap(version=version)
                 elif state == '0':
                     result = {'ment':'개장전', 'time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
                 message = result['ment']
