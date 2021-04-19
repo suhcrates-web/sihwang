@@ -10,7 +10,7 @@ def background(be_0 = 'None'):
         url = 'https://www.kiwoom.com/nkw.HeroFrontJisu3.do'
         req = requests.post(url)
         be_0 = BeautifulSoup(req.text, 'html.parser')
-        # print(be_0)
+        print(be_0)
 
     be = be_0.find_all('li')
     jisu_dict_s= {}
@@ -41,10 +41,13 @@ def background(be_0 = 'None'):
         #포인트 구간
         point = jisu[2].replace(' ','')
         jisu_dict['point'] = point
-
+        print(jisu)
 
         #증감율 구간
-        rate = jisu[3].replace('%','').replace(' ','')
+        try:
+            rate = jisu[3].replace('%','').replace(' ','')
+        except:
+            rate='0'
         jisu_dict['rate'] = rate
 
         name = name.lower()
