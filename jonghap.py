@@ -41,8 +41,8 @@ def jonghap(magam=False, version ='1'):
 # <br><br>{kospi_upjong}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
 # <br><br>{kosdaq_upjong}<br><br>{bg['exch_ment']}<br><br>"""
 
-    ment =f"""<br><br>{kospi_toojaja}<br><br>{kospi_jongmok}\
-<br><br>{kospi_upjong}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
+    ment =f"""(코스피) <br><br>{kospi_toojaja}<br><br>{kospi_jongmok}\
+<br><br>{kospi_upjong}<br>(코스닥)<br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
 <br><br>{kosdaq_upjong}"""
     # return {'ment':ment}
     with open(f'data/{jong}.csv', 'w') as f:
