@@ -15,9 +15,15 @@ def jonghap(magam=False, version ='1'):
     with open(f'data/{jong_time}.csv', 'w') as f:
         f.writelines([now])
     if not magam:
-        bg = background()
+        # bg = background()
+        pass
     elif magam:
         bg = background_magam()
+
+    bg['kospi_plma'] = False
+    bg['kosdaq_plma'] = False
+    # bg['kospi_plma']
+
     kospi_toojaja = kos_toojaja('kospi', bg['kospi_plma'])
     time.sleep(3)
     kosdaq_toojaja = kos_toojaja('kosdaq',bg['kosdaq_plma'])

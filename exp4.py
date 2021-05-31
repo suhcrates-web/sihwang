@@ -4,7 +4,7 @@ import socket, codecs, time, re
 from toolbox import dict_sort, banolim
 from datetime import date, timedelta, datetime
 
-url = 'https://www.kiwoom.com/nkw.HeroFrontJisu3.do'
+url = 'https://finance.naver.com/sise/sise_index.nhn?code=KOSPI'
 req = requests.post(url)
 be_0 = BeautifulSoup(req.text, 'html.parser')
 print(be_0)
