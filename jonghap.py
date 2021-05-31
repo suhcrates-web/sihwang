@@ -15,8 +15,8 @@ def jonghap(magam=False, version ='1'):
     with open(f'data/{jong_time}.csv', 'w') as f:
         f.writelines([now])
     if not magam:
-        # bg = background()
-        pass
+        bg = background()
+        # pass
     elif magam:
         bg = background_magam()
 
