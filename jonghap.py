@@ -29,9 +29,13 @@ def jonghap(magam=False, version ='1'):
     # except:
     #     kosdaq_upjong = "(코스닥 업종 없음)"
     kosdaq_jongmok = kos_sentences('kosdaq', bg['kosdaq_plma'])
-    ment = f"""<br><br>{bg['kospi_ment']}<br><br>{kospi_toojaja}<br><br>{kospi_jongmok}\
-<br><br>{kospi_upjong}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
-<br><br>{kosdaq_upjong}<br><br>{bg['exch_ment']}<br><br>"""
+#     ment = f"""<br><br>{bg['kospi_ment']}<br><br>{kospi_toojaja}<br><br>{kospi_jongmok}\
+# <br><br>{kospi_upjong}<br><br>{bg['kosdaq_ment']}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
+# <br><br>{kosdaq_upjong}<br><br>{bg['exch_ment']}<br><br>"""
+
+    ment =f"""<br><br>{kospi_toojaja}<br><br>{kospi_jongmok}\
+<br><br>{kospi_upjong}<br><br>{kosdaq_toojaja}<br><br>{kosdaq_jongmok}\
+<br><br>{kosdaq_upjong}"""
     # return {'ment':ment}
     with open(f'data/{jong}.csv', 'w') as f:
         f.writelines([ment,'|',str(now)])
